@@ -41,7 +41,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
                 ShowUpAnimation(
-                  delayStart: const Duration(milliseconds: 200),
+                  delayStart: const Duration(milliseconds: 1),
                   curve: Curves.bounceIn,
                   child: SizedBox(
                     width: size.width * 0.6,
@@ -67,15 +67,14 @@ class WelcomeScreen extends StatelessWidget {
           child: Column(
             children: [
               ShowUpAnimation(
-                delayStart: const Duration(milliseconds: 300),
+                delayStart: const Duration(milliseconds: 250),
                 curve: Curves.bounceIn,
                 child: MaterialButton(
                   onPressed: () {
-                    print('Ok');
+                    Navigator.pushNamed(context, 'LoginScreen');
                   },
                   child: const Text('Iniciar Sesion'),
                   color: Colors.white,
-                  shape: const StadiumBorder(),
                   minWidth: size.width * 1,
                   height: 40,
                 ),
@@ -84,7 +83,7 @@ class WelcomeScreen extends StatelessWidget {
                 height: 10,
               ),
               ShowUpAnimation(
-                delayStart: const Duration(milliseconds: 400),
+                delayStart: const Duration(milliseconds: 350),
                 curve: Curves.bounceIn,
                 child: const Text(
                   'Registrarse',
