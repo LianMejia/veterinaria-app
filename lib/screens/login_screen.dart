@@ -54,9 +54,17 @@ class LoignScreen extends StatelessWidget {
                 width: size.width * 0.9,
                 child: TextFormField(
                   decoration: const InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                      labelStyle: TextStyle(fontSize: 14),
                       border: OutlineInputBorder(),
-                      filled: true,
-                      label: Text('Correo Electronico'),
+                      label: Text(
+                        'Correo Electronico',
+                        style: TextStyle(color: Colors.grey),
+                      ),
                       isDense: true),
                 ),
               ),
@@ -67,9 +75,21 @@ class LoignScreen extends StatelessWidget {
                 width: size.width * 0.9,
                 child: TextFormField(
                   decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      label: Text('Contraseña'),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                      labelStyle: TextStyle(fontSize: 14),
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.green),
+                      ),
+                      label: Text(
+                        'Contraseña',
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
                       isDense: true),
                 ),
               ),
@@ -77,11 +97,16 @@ class LoignScreen extends StatelessWidget {
                 height: 18,
               ),
               MaterialButton(
+                elevation: 0,
                 height: 40,
-                color: Colors.grey[200],
+                color: Colors.green[600],
                 onPressed: () {},
-                child: const Text('Iniciar Sesion'),
+                child: const Text(
+                  'Iniciar Sesion',
+                  style: TextStyle(color: Colors.white),
+                ),
                 minWidth: size.width * 0.9,
+                shape: StadiumBorder(),
               ),
               const SizedBox(
                 height: 14,

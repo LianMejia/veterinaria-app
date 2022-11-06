@@ -85,9 +85,14 @@ class WelcomeScreen extends StatelessWidget {
               ShowUpAnimation(
                 delayStart: const Duration(milliseconds: 350),
                 curve: Curves.bounceIn,
-                child: const Text(
-                  'Registrarse',
-                  style: TextStyle(color: Colors.white),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, 'RegisterScreen');
+                  },
+                  child: const Text(
+                    'Registrarse',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               )
             ],
