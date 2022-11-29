@@ -67,7 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           backgroundColor: Colors.white,
           leading: IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, 'WelcomeScreen');
+              Navigator.pushNamed(context, '/');
             },
             icon: const Icon(Icons.arrow_back_ios_new),
             color: Colors.black,
@@ -109,13 +109,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _nameController,
                   decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
+                        borderSide: BorderSide(color: Colors.teal),
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 11, horizontal: 12),
                       labelStyle: TextStyle(fontSize: 14),
                       border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green),
+                        borderSide: const BorderSide(color: Colors.teal),
                       ),
                       label: Text(
                         'Nombres',
@@ -137,13 +137,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _phoneController,
                   decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
+                        borderSide: BorderSide(color: Colors.teal),
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 11, horizontal: 12),
                       labelStyle: TextStyle(fontSize: 14),
                       border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green),
+                        borderSide: const BorderSide(color: Colors.teal),
                       ),
                       label: Text(
                         'Celular',
@@ -165,13 +165,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _emailController,
                   decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
+                        borderSide: BorderSide(color: Colors.teal),
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 11, horizontal: 12),
                       labelStyle: TextStyle(fontSize: 14),
                       border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green),
+                        borderSide: const BorderSide(color: Colors.teal),
                       ),
                       label: Text(
                         'Correo Electronico',
@@ -192,13 +192,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _passwordController,
                   decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
+                        borderSide: BorderSide(color: Colors.teal),
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 11, horizontal: 12),
                       labelStyle: TextStyle(fontSize: 14),
                       border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green),
+                        borderSide: const BorderSide(color: Colors.teal),
                       ),
                       label: Text(
                         'Contraseña',
@@ -312,6 +312,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ] else ...[
                     MaterialButton(
                       elevation: 0,
+                      hoverElevation: 0,
+                      focusElevation: 0,
+                      highlightElevation: 0,
                       height: 40,
                       color: Colors.grey[400],
                       onPressed: () {},
@@ -320,7 +323,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         style: TextStyle(color: Colors.white),
                       ),
                       minWidth: size.width * 0.9,
-                      shape: StadiumBorder(),
+                      shape: const StadiumBorder(),
                     ),
                   ]
                 ],

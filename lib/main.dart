@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:veterinaria_app/routes/routes.dart';
+import 'package:veterinaria_app/services/create_new_pet_provider.dart';
+import 'package:veterinaria_app/services/secure_token_login.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,10 +19,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: 'PrincipalBnb',
-      routes: getRoutes(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (BuildContext cotext) => SecureTokenLogin()),
+        ChangeNotifierProvider(
+            create: (BuildContext cotext) => CreateNewPetProvider())
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: 'CheckAuthScreen',
+        routes: getRoutes(),
+      ),
     );
   }
 }

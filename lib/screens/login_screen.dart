@@ -1,12 +1,53 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class LoignScreen extends StatelessWidget {
+class LoignScreen extends StatefulWidget {
   const LoignScreen({Key? key}) : super(key: key);
 
   @override
+  State<LoignScreen> createState() => _LoignScreenState();
+}
+
+class _LoignScreenState extends State<LoignScreen> {
+  TextEditingController _emailController = TextEditingController();
+
+  bool isButtonActive = false;
+
+  TextEditingController _passwordController = TextEditingController();
+
+  bool isButtonActive2 = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _emailController.addListener(() {
+      final isButtonActive = _emailController.text.length >= 6;
+      setState(() {
+        this.isButtonActive = isButtonActive;
+      });
+    });
+    _passwordController.addListener(() {
+      final isButtonActive2 = _passwordController.text.length >= 8;
+      setState(() {
+        this.isButtonActive2 = isButtonActive2;
+      });
+    });
+  }
+
+  bool _ocultPass = true;
+
+  Icon _iconPass = const Icon(
+    Icons.remove_red_eye_outlined,
+    color: Colors.grey,
+  );
+
+  @override
   Widget build(BuildContext context) {
+    final storage = FlutterSecureStorage();
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -14,7 +55,7 @@ class LoignScreen extends StatelessWidget {
           backgroundColor: Colors.white,
           leading: IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, 'WelcomeScreen');
+              Navigator.pushNamed(context, '/');
             },
             icon: const Icon(Icons.arrow_back_ios_new),
             color: Colors.black,
@@ -53,9 +94,11 @@ class LoignScreen extends StatelessWidget {
               SizedBox(
                 width: size.width * 0.9,
                 child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  controller: _emailController,
                   decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
+                        borderSide: BorderSide(color: Colors.teal),
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 11, horizontal: 12),
@@ -74,15 +117,16 @@ class LoignScreen extends StatelessWidget {
               SizedBox(
                 width: size.width * 0.9,
                 child: TextFormField(
+                  controller: _passwordController,
                   decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
+                        borderSide: BorderSide(color: Colors.teal),
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 11, horizontal: 12),
                       labelStyle: TextStyle(fontSize: 14),
                       border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green),
+                        borderSide: const BorderSide(color: Colors.teal),
                       ),
                       label: Text(
                         'Contraseña',
@@ -99,8 +143,45 @@ class LoignScreen extends StatelessWidget {
               MaterialButton(
                 elevation: 0,
                 height: 40,
-                color: Colors.green[600],
-                onPressed: () {},
+                color: Colors.teal,
+                onPressed: () async {
+                  try {
+                    UserCredential userCredential = await FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: _emailController.text,
+                            password: _passwordController.text);
+                    FirebaseAuth.instance
+                        .authStateChanges()
+                        .listen((User? user) async {
+                      if (user == null) {
+                        print('Error');
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text(
+                                'No esta registrado, por favor registrese')));
+                      } else {
+                        final logueado = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: _emailController.text,
+                                password: _passwordController.text);
+
+                        final tokenResult =
+                            await FirebaseAuth.instance.currentUser!;
+                        final idToken = await tokenResult.getIdToken();
+                        final token = idToken;
+                        print(token);
+
+                        await storage.write(key: 'token', value: token);
+
+                        Navigator.pushNamed(context, 'PrincipalBnb');
+                      }
+                    });
+                  } catch (e) {
+                    print(e);
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                            'No esta registrado, por favor cree una cuenta')));
+                  }
+                },
                 child: const Text(
                   'Iniciar Sesion',
                   style: TextStyle(color: Colors.white),

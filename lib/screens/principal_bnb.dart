@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:veterinaria_app/screens/home_screen.dart';
 
@@ -24,19 +24,19 @@ class PrincipalBnb extends StatelessWidget {
         PersistentBottomNavBarItem(
           icon: Icon(Icons.home),
           title: ("Home"),
-          activeColorPrimary: Colors.green,
+          activeColorPrimary: Colors.teal,
           inactiveColorPrimary: Colors.grey,
         ),
         PersistentBottomNavBarItem(
           icon: Icon(Icons.add),
           title: ("Home"),
-          activeColorPrimary: Colors.green,
+          activeColorPrimary: Colors.teal,
           inactiveColorPrimary: Colors.grey,
         ),
         PersistentBottomNavBarItem(
           icon: Icon(Icons.person),
           title: ("Home"),
-          activeColorPrimary: Colors.green,
+          activeColorPrimary: Colors.teal,
           inactiveColorPrimary: Colors.grey,
         ),
       ];
@@ -73,6 +73,52 @@ class PrincipalBnb extends StatelessWidget {
       ),
       navBarStyle:
           NavBarStyle.style13, // Choose the nav bar style with this property.
+    );
+  }
+}
+ */
+
+import 'package:flutter/material.dart';
+import 'package:veterinaria_app/screens/home_screen.dart';
+
+class PrincipalBnb extends StatefulWidget {
+  @override
+  createState() => _PrincipalBnbState();
+}
+
+class _PrincipalBnbState extends State<PrincipalBnb> {
+  int _contador = 0;
+  final _pages = [HomeScreen(), HomeScreen(), HomeScreen()];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _contador = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Inicio',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Agendar Cita'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
+        ],
+        currentIndex: _contador,
+        //Ocultar texto icono seleccionado
+        showSelectedLabels: false,
+        //Ocultar texto iconos no seleccionados
+        showUnselectedLabels: false,
+        selectedItemColor: Colors.teal,
+
+        onTap: _onItemTapped,
+      ),
+      body: _pages[_contador],
     );
   }
 }
